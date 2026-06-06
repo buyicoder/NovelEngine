@@ -30,6 +30,8 @@ def main():
         "relations": _cmd_relations,
         "templates": _cmd_templates,
         "deconstruct": _cmd_deconstruct,
+        "outline": _cmd_outline,
+        "generate": _cmd_generate,
         "archive": _cmd_archive,
         "doctor": _cmd_doctor,
         "init": _cmd_init,
@@ -73,6 +75,14 @@ def _cmd_deconstruct(args):
     print("deconstruct subcommand — not yet implemented in Phase 1 core.")
 
 
+def _cmd_outline(args):
+    print("outline subcommand — use /novel-outline skill for interactive planning.")
+
+
+def _cmd_generate(args):
+    print("generate subcommand — use /novel-generate skill for vernacular chapter generation.")
+
+
 def _cmd_archive(args):
     print("archive subcommand — not yet implemented in Phase 1 core.")
 
@@ -102,6 +112,8 @@ def _cmd_help(args):
     print("  preflight    Run project health preflight")
     print("  doctor       Diagnose project issues")
     print("  init         Initialize new book project")
+    print("  outline      Manage story outlines")
+    print("  generate     Generate vernacular chapter content")
     print("  index        Entity index management")
     print("  relations    Relation graph management")
     print("  templates    Template management")
