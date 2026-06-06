@@ -1,0 +1,274 @@
+# NovelEngine
+
+> 网文创作辅助系统 — 拆书分析 · 世界观搭建 · 头脑风暴 · 剧情规划 · 白话剧情生成
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-0.2.0-brightgreen.svg)](.claude-plugin/plugin.json)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Plugin-purple.svg)](https://claude.ai/claude-code)
+
+NovelEngine 是一个跑在 **Claude Code** 上的网文创作辅助插件。它 **不直接写书**，而是帮你：拆解参考书、搭建世界观、头脑风暴创意、规划剧情走向、生成白话章纲。文学创作由你来完成，AI 负责把设定、伏笔、结构这些"不能忘、不能乱"的事情管住。
+
+## 为什么不用 AI 直接写书
+
+AI 写正文有一个根本问题：写到第 80 章以后，角色动机漂移、战力崩坏、伏笔丢失。这不是模型能力问题，而是**上下文窗口装不下几百章的完整记忆**。
+
+NovelEngine 的做法是：**AI 只做它擅长的事**——拆书分析、体系设计、结构规划、白话剧情复述。真正需要文笔、审美、情绪张力的正文，留给作者。
+
+## 安装
+
+### 方式一：从 GitHub 安装（推荐）
+
+在 Claude Code 中输入：
+
+```bash
+/claude plugin install git@github.com:buyicoder/NovelEngine.git
+```
+
+或者通过 Marketplace：
+
+```bash
+claude plugin marketplace add buyicoder/NovelEngine --scope user
+claude plugin install novel-engine@novel-engine-marketplace --scope user
+```
+
+### 方式二：克隆后本地安装
+
+```bash
+git clone git@github.com:buyicoder/NovelEngine.git
+claude plugin install ./NovelEngine --scope user
+```
+
+### 安装 Python 依赖
+
+```bash
+pip install pydantic>=2.0 pytest
+```
+
+> Phase 1 依赖极简，无需 embedding/rerank 模型。后续版本会加入 RAG 检索。
+
+## 快速开始
+
+### 1. 创建你的第一本书
+
+在 Claude Code 中输入：
+
+```bash
+/novel-init
+```
+
+这个命令会引导你完成：书名 → 题材 → 一句话故事 → 核心冲突 → 目标规模，然后自动生成项目骨架。
+
+或者用 CLI 快速创建：
+
+```bash
+python -X utf8 "<plugin_path>/scripts/webnovel.py" \
+  --project-root "./我的小说" \
+  init --name "星辰纪元" --genre "科幻"
+```
+
+### 2. 项目结构
+
+初始化后你的书项目长这样：
+
+```
+我的小说/
+├── 设定集/                  # 世界观设定（你编辑）
+│   ├── 世界观.md
+│   ├── 力量体系.md
+│   ├── 经济体系.md
+│   ├── 势力格局.md
+│   ├── 主角卡.md
+│   └── 配角卡.md
+├── 大纲/                    # 剧情规划（AI 生成，你确认）
+│   ├── 总纲.md
+│   ├── 第1卷-详细大纲.md
+│   └── 第1卷-时间线.md
+├── 正文/                    # 产出内容
+│   └── 白话剧情/
+│       └── 第0001章-白话剧情.md
+├── 拆书存档/                # 参考书拆解结果
+└── .novel/                  # 系统数据（不手动改）
+    ├── state.json
+    └── index.db
+```
+
+### 3. 完整创作流程
+
+```
+拆书分析              世界观搭建           剧情规划           白话剧情生成
+/novel-deconstruct → /novel-worldbuild → /novel-outline → /novel-generate
+      ↑                    ↑                                    │
+      └── 头脑风暴 /novel-brainstorm（随时可用）←───────────────┘
+```
+
+## 命令速查
+
+### 核心创作命令
+
+| 命令 | 功能 | 示例 |
+|------|------|------|
+| `/novel-deconstruct` | 拆解参考小说，提取可迁移模式 | `/novel-deconstruct 斗破苍穹` |
+| `/novel-worldbuild` | 系统化搭建世界观（五子系统） | `/novel-worldbuild` 或 `/novel-worldbuild power` |
+| `/novel-outline` | 从总纲到章纲，三层规划 | `/novel-outline 1` 规划第 1 卷 |
+| `/novel-generate` | 生成白话剧情（2-5句/章） | `/novel-generate 1-10` 第 1-10 章 |
+| `/novel-brainstorm` | 头脑风暴（候选/反套路/推演/融合） | `/novel-brainstorm 金手指设计` |
+
+### 辅助命令
+
+| 命令 | 功能 | 示例 |
+|------|------|------|
+| `/novel-query` | 查询设定、角色、势力、伏笔 | `/novel-query 萧炎` |
+| `/novel-doctor` | 项目体检，诊断问题 | `/novel-doctor` |
+
+### CLI 命令
+
+```bash
+python webnovel.py --project-root "<路径>" <子命令>
+```
+
+| 子命令 | 功能 |
+|--------|------|
+| `init` | 初始化新书项目 |
+| `preflight` | 项目健康检查 |
+| `doctor` | 诊断并输出修复建议 |
+| `where` | 打印当前项目根目录 |
+| `index` | 实体索引管理 |
+| `relations` | 关系图管理 |
+| `archive` | 项目备份 |
+
+## 核心模块详解
+
+### 1. 拆书分析
+
+不复制原作事实，只抽离"条件框架"：
+
+- **快速模式**：黄金三章拆解 → 钩子、爽点、世界观引入、章尾悬念
+- **深度模式**：逐章情节点 → 剧情线聚合 → 角色合并 → 模式抽象
+- **跨书对比**：`/novel-deconstruct --compare <A> <B>`
+
+输出到 `拆书存档/<书名>/analysis.json`，包含可借鉴结构和差异化要求。
+
+### 2. 世界观搭建
+
+五个子系统，按需交互式搭建：
+
+| 子系统 | 产出 |
+|--------|------|
+| 等级/力量体系 | 境界层级、能力解锁、突破条件、战力换算 |
+| 货币/经济体系 | 货币层级、兑换比例、购买力锚定、资源稀缺度 |
+| 势力格局 | 宗门/家族/组织、势力关系、压迫结构 |
+| 人物关系 | D-F-W-N-C 五维模型、角色卡、反派层级 |
+| 世界规则 | 地理格局、历史事件、特殊规则、限制代价 |
+
+完成后自动触发一致性校验（跨设定冲突检测）。
+
+### 3. 剧情走向规划
+
+三层规划：总纲（核心冲突+分卷） → 卷纲（章级拆分+时间线） → 章纲（每章一句话）
+
+章纲粒度严格控制在 **一句话核心事件**，如："萧炎在炼药师大会上击败对手，获得冠军。"
+
+### 4. 白话剧情生成
+
+核心创新。将章纲展开为极简白话：
+
+- **每章 2-5 句话，100-300 字**
+- 口语化复述核心事件链
+- **不写场景、对话、心理、修辞**
+- 自动注入角色设定、世界观约束、前章伏笔
+
+示例：
+
+```
+章纲：「萧炎得知炼药师大会，开始准备」
+
+白话剧情：
+药老告诉萧炎明天就是炼药师大会。萧炎虽然紧张但还是接下了。
+他回房间练习新丹方，一开始连炸两炉，后来慢慢找到了感觉，
+终于在第三次成功了。
+```
+
+### 5. 头脑风暴引擎
+
+四种发散模式，任意环节按需调用：
+
+- **创意候选**：生成 3-5 个差异化方案
+- **反套路推演**：打破老套桥段
+- **假设推演**："如果主角在决赛输了会怎样？"
+- **题材融合**："修仙 + 悬疑怎么结合？"
+
+## 架构
+
+```
+Claude Code
+├── 7 个 Skill 命令（Slash Commands）
+├── 5 个 Agent（AI 角色代理）
+│   ├── Deconstruction Agent  拆书分析
+│   ├── Worldbuilding Agent   世界观搭建
+│   ├── Outline Agent         剧情规划
+│   ├── Brainstorm Agent      头脑风暴
+│   └── Consistency Agent     一致性校验
+├── Python CLI（14 个数据模块）
+│   ├── 实体索引 (SQLite)
+│   ├── 关系图管理
+│   ├── 模板管理 (37 题材 + 10 输出模板)
+│   ├── 拆书存档管理
+│   ├── 项目体检
+│   └── 备份归档
+└── 引用知识库
+    ├── 37 题材模板
+    ├── 世界观设计指南（力量/势力/角色/经济/世界规则）
+    ├── 创意工具箱（反套路/融合/约束）
+    └── CSV 参考数据（命名/爽点/金手指/题材推理）
+```
+
+**设计原则**：Agent 只做思考，CLI 只做数据，Skill 做编排。Markdown 为主（人可读），SQLite 为辅（可查询）。
+
+## 与 webnovel-writer 的区别
+
+| 维度 | webnovel-writer | NovelEngine |
+|------|----------------|-------------|
+| 定位 | AI 辅助写完整正文 | AI 辅助设计和规划，不写正文 |
+| 核心产出 | 章节正文 | 设定集 + 大纲 + 白话剧情 |
+| 审查 | 六维正文审查 | 一致性校验（设定不打架） |
+| 节奏 | Strand Weave（三线交织） | 大纲结构规划 |
+| 拆书 | 为 init 提供灵感 | 独立的一等模块 |
+| 头脑风暴 | 无 | 独立模块 |
+| 白话剧情 | 无（直接写正文） | 核心创新 |
+
+## 内置题材
+
+37 个中文网文题材模板，支持复合题材（A+B 融合）：
+
+修仙 · 系统流 · 高武 · 西幻 · 无限流 · 末世 · 科幻
+克苏鲁 · 规则怪谈 · 悬疑脑洞 · 悬疑灵异 · 都市异能 · 都市日常 · 都市脑洞
+古言 · 宫斗宅斗 · 青春甜宠 · 豪门总裁 · 狗血言情 · 替身文 · 种田
+历史古代 · 历史脑洞 · 抗战谍战 · 电竞 · 直播文 · 知乎短篇 · 现实题材
+女频悬疑 · 幻想言情 · 年代 · 民国言情 · 职场婚恋 · 黑暗题材 · 多子多福 · 游戏体育
+
+## 开发
+
+```bash
+git clone git@github.com:buyicoder/NovelEngine.git
+cd NovelEngine
+pip install -r requirements.txt
+python -m pytest tests/ -v
+```
+
+## 路线图
+
+| 版本 | 内容 |
+|------|------|
+| **v0.2.0 (当前)** | 5 Agent + 7 Skill + Python CLI + 37 题材 + 世界观/大纲/白话剧情/头脑风暴 |
+| **v0.3.0 (计划)** | RAG 检索接入（embedding + rerank），设定智能检索 |
+| **v0.4.0 (计划)** | 人物关系可视化、拆书模式库积累 |
+| **v1.0.0 (计划)** | Dashboard 面板、批量拆书对比、多项目管理 |
+
+## 致谢
+
+本项目在设计与实现中参考了 [webnovel-writer](https://github.com/lingfengQAQ/webnovel-writer) 的架构思路、题材模板和拆书流程设计，在此致谢。
+
+## License
+
+MIT
