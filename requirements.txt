@@ -1,0 +1,6 @@
+# NovelEngine Python dependencies
+# Core
+pydantic>=2.0
+
+# No embedding/rerank deps needed in Phase 1
+# RAG support will be added in later phases
