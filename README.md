@@ -162,6 +162,7 @@ python -X utf8 "<plugin_path>/scripts/webnovel.py" \
 
 | 命令 | 功能 | 示例 |
 |------|------|------|
+| `/novel-track` | 故事演化追踪（伏笔/人物/大纲偏离） | `/novel-track` |
 | `/novel-query` | 查询设定、角色、势力、伏笔 | `/novel-query 萧炎` |
 | `/novel-doctor` | 项目体检，诊断问题 | `/novel-doctor` |
 
@@ -177,6 +178,7 @@ python webnovel.py --project-root "<路径>" <子命令>
 | `preflight` | 项目健康检查 |
 | `doctor` | 诊断并输出修复建议 |
 | `where` | 打印当前项目根目录 |
+| `track` | 故事演化追踪（伏笔/人物/大纲偏离） |
 | `index` | 实体索引管理 |
 | `relations` | 关系图管理 |
 | `archive` | 项目备份 |
@@ -233,7 +235,24 @@ python webnovel.py --project-root "<路径>" <子命令>
 终于在第三次成功了。
 ```
 
-### 5. 头脑风暴引擎
+### 5. 故事演化追踪
+
+写作过程中自动追踪三个维度，主动预警：
+
+| 维度 | 追踪内容 | 预警条件 |
+|------|----------|----------|
+| **伏笔** | 埋设 → 推进 → 回收 全生命周期 | 逾期未回收（P0）、长期无推进（P1） |
+| **人物** | 每章出场记录、设定变更历史 | 超 15 章未出场（P2）、出场过密（P2） |
+| **大纲** | 计划章纲 vs 实际内容 | 重大偏离（P1）、完全重写（P0） |
+
+```bash
+/novel-track                   # 全维度健康报告
+/novel-track foreshadowing     # 只看伏笔
+/novel-track characters        # 只看人物
+/novel-track outline           # 只看大纲偏离
+```
+
+### 6. 头脑风暴引擎
 
 四种发散模式，任意环节按需调用：
 

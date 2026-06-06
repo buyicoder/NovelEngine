@@ -32,6 +32,7 @@ def main():
         "deconstruct": _cmd_deconstruct,
         "outline": _cmd_outline,
         "generate": _cmd_generate,
+        "track": _cmd_track,
         "archive": _cmd_archive,
         "doctor": _cmd_doctor,
         "init": _cmd_init,
@@ -81,6 +82,74 @@ def _cmd_outline(args):
 
 def _cmd_generate(args):
     print("generate subcommand — use /novel-generate skill for vernacular chapter generation.")
+
+
+def _cmd_track(args):
+    """Story evolution tracking — foreshadowing, characters, outline deviations."""
+    from data_modules.config import resolve_project_root
+    from data_modules.story_evolution import StoryEvolutionTracker
+    root = resolve_project_root(args.get("project_root"))
+    tracker = StoryEvolutionTracker(root)
+    extra = args.get("extra", {})
+    chapter_val = extra.get("chapter")
+    if chapter_val:
+        chapter = int(chapter_val)
+    else:
+        pos = extra.get("_positional", [])
+        chapter = int(pos[0]) if pos else None
+
+    action = extra.get("action", "report")
+    if action == "report" or not action:
+        print(tracker.get_full_report(chapter))
+    elif action == "warnings":
+        import json
+        warnings = tracker.get_warnings_only(chapter or 9999)
+        print(json.dumps(warnings, ensure_ascii=False, indent=2))
+    elif action == "foreshadowing":
+        if extra.get("plant"):
+            tracker.foreshadowing.plant(
+                extra.get("id", f"fs_{chapter}"), extra.get("name", ""),
+                extra.get("desc", ""), int(extra.get("planted", chapter or 1)),
+                due_chapter=int(extra["due"]) if extra.get("due") else None,
+                tags=extra.get("tags", "").split(",") if extra.get("tags") else None,
+            )
+            print("Foreshadowing planted.")
+        elif extra.get("advance"):
+            tracker.foreshadowing.advance(extra["advance"], chapter or 1, note=extra.get("note", ""))
+            print("Foreshadowing advanced.")
+        elif extra.get("resolve"):
+            tracker.foreshadowing.resolve(extra["resolve"], chapter or 1)
+            print("Foreshadowing resolved.")
+        else:
+            items = tracker.foreshadowing.get_all()
+            for f in items:
+                print(f"[{f['status']}] {f['name']} (ch.{f['planted_chapter']}) → {f['description'][:60]}")
+    elif action == "character":
+        name = extra.get("name", "")
+        if extra.get("appear"):
+            tracker.characters.register_character(name, name)
+            tracker.characters.record_appearance(name, chapter or 1)
+            print(f"Character '{name}' appearance recorded at ch.{chapter}")
+        elif extra.get("evolve"):
+            tracker.characters.record_evolution(name, chapter or 1,
+                                                 extra.get("change", ""), extra.get("reason", ""))
+            print(f"Character '{name}' evolution recorded.")
+        else:
+            chars = tracker.characters.get_all_characters()
+            for c in chars:
+                print(f"{c['name']} | last: ch.{c['last_chapter']} | {c['appearances']} appearances")
+    elif action == "outline":
+        if extra.get("plan"):
+            tracker.outline.register_planned(int(extra["chapter_num"]), extra.get("summary", ""))
+            print("Outline plan registered.")
+        elif extra.get("actual"):
+            tracker.outline.record_actual(int(extra["chapter_num"]), extra.get("summary", ""),
+                                          extra.get("deviation", "none"), extra.get("reason", ""))
+            print("Actual chapter recorded.")
+        else:
+            devs = tracker.outline.get_deviations()
+            for d in devs:
+                print(f"Ch.{d['chapter']} [{d['deviation_type']}] planned: {d['planned'][:40]} → actual: {d['actual'][:40]}")
 
 
 def _cmd_archive(args):
