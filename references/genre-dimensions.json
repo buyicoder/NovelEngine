@@ -1,0 +1,389 @@
+{
+  "description": "题材自适应维度映射 — 不同题材聚焦不同的世界观搭建维度。priority 1=核心必答, 2=建议搭建, 3=可选, 0=不适用",
+  "genres": {
+    "修仙": {
+      "dimensions": {
+        "power_system": {"priority": 1, "label": "力量体系", "focus": "境界层级、突破条件、战力换算、丹药法宝体系"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "宗门、家族、散修、正邪对立"},
+        "resources": {"priority": 1, "label": "资源体系", "focus": "灵石、丹药、天材地宝、秘境"},
+        "characters": {"priority": 2, "label": "人物关系", "focus": "师徒、道侣、宿敌、同盟"},
+        "world_rules": {"priority": 2, "label": "世界规则", "focus": "天道、飞升、因果、禁制"},
+        "economy": {"priority": 3, "label": "经济体系", "focus": "灵石货币、拍卖会"},
+        "timeline": {"priority": 3, "label": "时间线", "focus": "修炼年限、时代背景"}
+      }
+    },
+    "系统流": {
+      "dimensions": {
+        "power_system": {"priority": 1, "label": "系统机制", "focus": "系统功能、等级/Lv、任务奖励、技能树、升级条件"},
+        "characters": {"priority": 2, "label": "人物关系", "focus": "宿主与系统的关系、配角功能定位"},
+        "resources": {"priority": 2, "label": "资源体系", "focus": "积分、商城、抽奖、道具"},
+        "world_rules": {"priority": 2, "label": "世界规则", "focus": "系统来源、限制条件、惩罚机制"},
+        "factions": {"priority": 3, "label": "势力格局", "focus": "其他系统拥有者、敌对势力"},
+        "economy": {"priority": 3, "label": "经济体系", "focus": "现实货币与系统积分换算"},
+        "timeline": {"priority": 3, "label": "时间线", "focus": "系统任务节奏"}
+      }
+    },
+    "高武": {
+      "dimensions": {
+        "power_system": {"priority": 1, "label": "力量体系", "focus": "武道境界、功法等级、战力对比"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "武馆、门派、军方、地下势力"},
+        "characters": {"priority": 2, "label": "人物关系", "focus": "师徒传承、师兄弟竞争"},
+        "resources": {"priority": 2, "label": "资源体系", "focus": "功法、丹药、武器"},
+        "world_rules": {"priority": 2, "label": "世界规则", "focus": "武道天花板、禁术代价"},
+        "economy": {"priority": 3, "label": "经济体系", "focus": "悬赏体系、资源交易"},
+        "timeline": {"priority": 3, "label": "时间线", "focus": "修炼进度、大赛周期"}
+      }
+    },
+    "西幻": {
+      "dimensions": {
+        "power_system": {"priority": 1, "label": "魔法体系", "focus": "魔法等级、元素体系、禁咒、魔力来源"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "王国、教廷、魔法公会、龙族、精灵"},
+        "world_rules": {"priority": 1, "label": "世界规则", "focus": "神祇体系、种族关系、创世神话"},
+        "characters": {"priority": 2, "label": "人物关系", "focus": "勇者与伙伴、贵族联姻、种族同盟"},
+        "resources": {"priority": 2, "label": "资源体系", "focus": "魔晶、魔法材料、神器"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "金币体系、冒险者公会任务报酬"},
+        "timeline": {"priority": 3, "label": "时间线", "focus": "纪元更替、预言周期"}
+      }
+    },
+    "无限流": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "副本规则", "focus": "副本类型、任务机制、奖惩规则、主神空间法则"},
+        "power_system": {"priority": 1, "label": "强化体系", "focus": "血统、技能、装备、属性点、基因锁"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "队友、敌对轮回者、NPC关系"},
+        "resources": {"priority": 2, "label": "资源体系", "focus": "积分、支线剧情、特殊道具"},
+        "factions": {"priority": 2, "label": "势力格局", "focus": "轮回者团队、资深者与新人的权力结构"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "副本间隔、剧情进度"},
+        "economy": {"priority": 3, "label": "经济体系", "focus": "副本内经济系统"}
+      }
+    },
+    "末世": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "末世设定", "focus": "灾难类型、丧尸/变异规则、生存法则、基地制度"},
+        "resources": {"priority": 1, "label": "资源体系", "focus": "食物、水、药品、武器、能源稀缺度"},
+        "power_system": {"priority": 1, "label": "能力体系", "focus": "异能等级、进化路线、觉醒条件"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "队友信任、背叛、领导者、幸存者群体"},
+        "factions": {"priority": 2, "label": "势力格局", "focus": "基地、军阀、掠夺者、科研组织"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "以物易物、末世货币"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "灾难爆发时间、变异阶段"}
+      }
+    },
+    "科幻": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "科技体系", "focus": "科技等级、核心技术、AI、能源"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "联邦/帝国/企业/外星文明/AI势力"},
+        "power_system": {"priority": 2, "label": "强化体系", "focus": "义体改造、基因优化、机甲等级"},
+        "characters": {"priority": 2, "label": "人物关系", "focus": "舰长与船员、AI与人类"},
+        "resources": {"priority": 2, "label": "资源体系", "focus": "稀有元素、能源、科技蓝图"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "星际贸易、信用点"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "纪元、科技发展阶段"}
+      }
+    },
+    "古言": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "主角与各角色的关系起点、变化节点、冲突源"},
+        "factions": {"priority": 1, "label": "家族/宫廷格局", "focus": "家族势力、皇权结构、后宫等级、派系"},
+        "world_rules": {"priority": 1, "label": "社会规则", "focus": "礼教约束、阶级限制、性别角色、婚姻制度"},
+        "relationship_timeline": {"priority": 1, "label": "关系变化时间线", "focus": "关键事件如何改变人物间的权力/情感/利益关系"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "嫁妆、产业、银钱"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "朝代背景、关键节庆、年龄节点"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "宫斗宅斗": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "妻妾/嫡庶/主仆关系网、联盟与敌对关系"},
+        "relationship_timeline": {"priority": 1, "label": "关系变化时间线", "focus": "每次事件后关系网的重新洗牌"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "各房派系、娘家势力、下人站队"},
+        "world_rules": {"priority": 1, "label": "社会规则", "focus": "嫡庶之别、礼法规矩、后院规则"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "月例、产业、打赏、贿赂"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "年节、怀孕周期、科举/升迁节点"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "青春甜宠": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "CP关系发展、闺蜜/兄弟、情敌、助攻角色"},
+        "relationship_timeline": {"priority": 1, "label": "关系发展时间线", "focus": "初遇→暧昧→确认→波折→HE的关键节点"},
+        "world_rules": {"priority": 2, "label": "故事背景", "focus": "校园/职场/娱乐圈等背景规则"},
+        "factions": {"priority": 3, "label": "社交圈", "focus": "朋友圈、同事圈"},
+        "economy": {"priority": 3, "label": "经济体系", "focus": "如有豪门/总裁元素才需要"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "豪门总裁": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "契约/联姻/替身关系、前女友/白月光、家族阻力"},
+        "relationship_timeline": {"priority": 1, "label": "关系变化时间线", "focus": "契约开始→假戏真做→误会分离→追妻火葬场→HE"},
+        "economy": {"priority": 1, "label": "经济/商业体系", "focus": "公司架构、商业竞争、财富量级"},
+        "factions": {"priority": 2, "label": "势力格局", "focus": "豪门家族、商业对手"},
+        "world_rules": {"priority": 2, "label": "社会规则", "focus": "上流社会规则、商业规则"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "狗血言情": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "情感三角、替身/白月光、失忆/误会、追妻火葬场"},
+        "relationship_timeline": {"priority": 1, "label": "情感事件时间线", "focus": "虐点分布、和好节点、情感转折"},
+        "world_rules": {"priority": 2, "label": "故事背景", "focus": "故事发生的具体场景规则"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "替身文": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "替身与正主、男主对两者的态度差异、觉醒后关系翻转"},
+        "relationship_timeline": {"priority": 1, "label": "关系翻转时间线", "focus": "当替身→真相暴露→离开→男主追回→身份转变"},
+        "world_rules": {"priority": 2, "label": "故事背景", "focus": "娱乐圈/豪门/校园背景规则"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "种田": {
+      "dimensions": {
+        "resources": {"priority": 1, "label": "资源体系", "focus": "土地、种子、工具、养殖、加工"},
+        "economy": {"priority": 1, "label": "经济体系", "focus": "农产品价格、贸易路线、财富积累节奏"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "家人、邻里、合作伙伴"},
+        "world_rules": {"priority": 2, "label": "社会规则", "focus": "农村/古代/异世界生产规则"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "季节周期、生产周期、发展里程碑"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"},
+        "factions": {"priority": 2, "label": "势力格局", "focus": "官府、乡绅、商帮"}
+      }
+    },
+    "悬疑脑洞": {
+      "dimensions": {
+        "clues": {"priority": 1, "label": "线索链", "focus": "核心谜题、线索分布、红鲱鱼、真相揭露时机"},
+        "characters": {"priority": 1, "label": "人物动机", "focus": "每个人的秘密、动机、不在场证明"},
+        "timeline": {"priority": 1, "label": "时间线", "focus": "案发时间、调查顺序、反转节点"},
+        "world_rules": {"priority": 1, "label": "规则设定", "focus": "脑洞规则（如时间循环/平行世界/记忆篡改）"},
+        "factions": {"priority": 3, "label": "势力格局", "focus": "如有组织/机构才需要"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "悬疑灵异": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "灵异规则", "focus": "鬼怪类型、超自然法则、驱鬼/封印机制"},
+        "clues": {"priority": 1, "label": "线索链", "focus": "每个灵异事件的真相、破解逻辑"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "阴阳眼/通灵者、受害者、幕后黑手"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "事件发生顺序、危机升级节奏"},
+        "power_system": {"priority": 2, "label": "能力体系", "focus": "驱鬼能力分级（如有）"},
+        "economy": {"priority": 0, "label": "经济体系", "focus": "不适用"}
+      }
+    },
+    "规则怪谈": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "规则体系", "focus": "每条规则、违反后果、规则间的逻辑关系、破解方法"},
+        "clues": {"priority": 1, "label": "线索链", "focus": "规则发现顺序、隐藏规则、误导信息"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "参与者、规则制定者、已淘汰者"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "规则揭示节奏、危机升级"},
+        "factions": {"priority": 3, "label": "势力格局", "focus": "如有组织才需要"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "克苏鲁": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "宇宙恐怖规则", "focus": "旧神/外神体系、SAN值/理智机制、禁忌知识"},
+        "clues": {"priority": 1, "label": "线索链", "focus": "碎片化线索、真相的恐怖性、不可名状"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "调查员、信徒、知情者、逐渐疯狂"},
+        "power_system": {"priority": 2, "label": "能力体系", "focus": "如有仪式/法术需要定义"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "异变进度、疯狂加深节奏"},
+        "economy": {"priority": 0, "label": "经济体系", "focus": "不适用"}
+      }
+    },
+    "都市异能": {
+      "dimensions": {
+        "power_system": {"priority": 1, "label": "异能体系", "focus": "异能类型、等级、觉醒条件、代价"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "异能组织、政府机构、地下势力"},
+        "world_rules": {"priority": 1, "label": "世界规则", "focus": "异能保密机制、普通人与异能者关系"},
+        "characters": {"priority": 2, "label": "人物关系", "focus": "队友、导师、普通人朋友"},
+        "economy": {"priority": 3, "label": "经济体系", "focus": "异能相关资源交易"},
+        "timeline": {"priority": 3, "label": "时间线", "focus": "能力成长节奏"}
+      }
+    },
+    "都市日常": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "主角社交圈、职场/校园人物关系"},
+        "world_rules": {"priority": 1, "label": "故事背景", "focus": "行业/校园/社区的具体规则和氛围"},
+        "economy": {"priority": 2, "label": "经济状况", "focus": "主角收入水平、消费场景"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "日常节奏、关键事件节点"},
+        "factions": {"priority": 3, "label": "社交圈层", "focus": "如有派系/小团体"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "电竞": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "游戏设定", "focus": "游戏类型、机制、职业/角色、赛事体系"},
+        "power_system": {"priority": 1, "label": "实力体系", "focus": "段位、胜率、操作等级、战术水平"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "队友、对手、教练、粉丝"},
+        "factions": {"priority": 2, "label": "战队格局", "focus": "各大战队、联盟、赞助商"},
+        "timeline": {"priority": 2, "label": "赛事时间线", "focus": "赛季、转会期、重要比赛"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "奖金、转会费、直播收入"},
+        "world_rules_bg": {"priority": 3, "label": "现实背景", "focus": "如有现实世界设定需补充"}
+      }
+    },
+    "直播文": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "直播设定", "focus": "直播平台、观众互动机制、系统/金手指"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "观众/粉丝、其他主播、平台方"},
+        "power_system": {"priority": 2, "label": "实力体系", "focus": "粉丝量级、热度等级、直播技能"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "打赏、广告、签约费"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "直播节奏、成长里程碑"},
+        "factions": {"priority": 3, "label": "公会格局", "focus": "如有公会/经纪公司"}
+      }
+    },
+    "历史古代": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "历史背景", "focus": "朝代设定、制度、文化、科技水平"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "朝廷、世家、藩镇、外敌"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "君臣、世家联姻、门生故吏"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "田赋、商税、货币"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "历史事件、年龄节点"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用（架空历史除外）"}
+      }
+    },
+    "抗战谍战": {
+      "dimensions": {
+        "factions": {"priority": 1, "label": "势力格局", "focus": "各方势力、情报网络、双面间谍"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "上下级、同志、敌人、摇摆人物"},
+        "clues": {"priority": 1, "label": "情报线索", "focus": "情报获取、传递、破译、暴露风险"},
+        "world_rules": {"priority": 1, "label": "时代背景", "focus": "历史时期、战时规则、地下工作法则"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "战役节点、任务周期"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "现实题材": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "家庭关系、职场关系、社会网络"},
+        "world_rules": {"priority": 1, "label": "社会背景", "focus": "行业规则、社会问题、时代特征"},
+        "economy": {"priority": 2, "label": "经济状况", "focus": "职业收入、生活成本、阶层"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "成长阶段、关键事件"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"},
+        "factions": {"priority": 3, "label": "社会圈层", "focus": "如有特定圈层需要定义"}
+      }
+    },
+    "知乎短篇": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "核心设定", "focus": "一句话高概念设定、独特规则"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "聚焦1-2对核心关系"},
+        "clues": {"priority": 1, "label": "反转设计", "focus": "反转节点、铺垫细节"},
+        "timeline": {"priority": 2, "label": "叙事时间线", "focus": "短篇叙事结构"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "女频悬疑": {
+      "dimensions": {
+        "clues": {"priority": 1, "label": "线索链", "focus": "谜题设计、线索分布、反转节点"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "男女主关系线与悬疑线的交织"},
+        "world_rules": {"priority": 1, "label": "悬疑设定", "focus": "案件/事件背后的规则和逻辑"},
+        "relationship_timeline": {"priority": 2, "label": "关系发展线", "focus": "感情线与悬疑线同步推进的节奏"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "案件时间线"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "幻想言情": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "幻想设定", "focus": "架空世界规则、特殊设定"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "CP关系、仙魔/人妖跨种族关系"},
+        "relationship_timeline": {"priority": 1, "label": "关系发展时间线", "focus": "前世今生/轮回/宿命关系的展开"},
+        "power_system": {"priority": 2, "label": "力量体系", "focus": "如有修仙/魔法元素"},
+        "factions": {"priority": 2, "label": "势力格局", "focus": "如有仙门/魔界/神界等势力"},
+        "economy": {"priority": 3, "label": "经济体系", "focus": "如有需要"}
+      }
+    },
+    "民国言情": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "时代背景", "focus": "民国时期社会规则、阶级、战乱"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "家族联姻、军阀/世家/平民三角关系"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "军阀、家族、洋人势力"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "产业、嫁妆、权势财富"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "历史事件节点、年龄节点"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "年代": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "时代背景", "focus": "特定年代的制度、文化、生活条件"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "家庭、邻里、知青/工人关系"},
+        "economy": {"priority": 1, "label": "经济状况", "focus": "票证、工资、物资稀缺度"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "年代跨度、关键政策节点"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "都市脑洞": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "脑洞设定", "focus": "独特的世界规则/系统/能力"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "普通人与特殊设定的交互关系"},
+        "power_system": {"priority": 2, "label": "能力体系", "focus": "如有能力/系统等级"},
+        "factions": {"priority": 2, "label": "势力格局", "focus": "如有特殊组织"},
+        "clues": {"priority": 2, "label": "线索链", "focus": "如有悬疑元素"},
+        "economy": {"priority": 3, "label": "经济体系", "focus": "如有经济元素"}
+      }
+    },
+    "现言脑洞": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "脑洞设定", "focus": "独特的现代背景规则/设定"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "女主与各角色的关系网"},
+        "relationship_timeline": {"priority": 1, "label": "关系发展时间线", "focus": "感情/关系的发展节点"},
+        "economic": {"priority": 3, "label": "经济状况", "focus": "如有需要"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "历史脑洞": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "脑洞设定", "focus": "历史与脑洞的结合规则（穿越/系统/重生）"},
+        "factions": {"priority": 1, "label": "势力格局", "focus": "历史势力与脑洞元素的交织"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "历史人物与主角的关系"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "古代经济+脑洞元素影响"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "历史时间线与脑洞事件的交错"},
+        "power_system": {"priority": 2, "label": "力量体系", "focus": "如有系统/能力元素"}
+      }
+    },
+    "多子多福": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "妻妾/子女/家族成员关系"},
+        "factions": {"priority": 1, "label": "家族格局", "focus": "家族内部各房、联姻家族"},
+        "economy": {"priority": 1, "label": "经济体系", "focus": "家产、分家、产业经营"},
+        "timeline": {"priority": 1, "label": "时间线", "focus": "子女生育/成长节点、家族兴衰"},
+        "world_rules": {"priority": 2, "label": "社会背景", "focus": "多子多福的社会制度/文化"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "游戏体育": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "竞技规则", "focus": "游戏/体育项目的具体规则和机制"},
+        "power_system": {"priority": 1, "label": "实力体系", "focus": "段位/排名、技术水平、天赋分级"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "队友、对手、教练、粉丝"},
+        "factions": {"priority": 2, "label": "战队/俱乐部", "focus": "各队实力、转会、联盟"},
+        "timeline": {"priority": 2, "label": "赛事时间线", "focus": "赛季、重要比赛、成长节点"},
+        "economy": {"priority": 2, "label": "经济体系", "focus": "奖金、转会费、代言"}
+      }
+    },
+    "职场婚恋": {
+      "dimensions": {
+        "characters": {"priority": 1, "label": "人物关系", "focus": "职场上下级/同事/客户中的感情线"},
+        "world_rules": {"priority": 1, "label": "职场规则", "focus": "行业规则、办公室政治、职业发展"},
+        "relationship_timeline": {"priority": 1, "label": "关系发展时间线", "focus": "从同事/上下级到恋人的关键节点"},
+        "economy": {"priority": 2, "label": "经济状况", "focus": "薪资水平、职业发展带来的经济变化"},
+        "power_system": {"priority": 0, "label": "力量体系", "focus": "不适用"}
+      }
+    },
+    "黑暗题材": {
+      "dimensions": {
+        "world_rules": {"priority": 1, "label": "黑暗规则", "focus": "世界的残酷法则、弱肉强食机制"},
+        "characters": {"priority": 1, "label": "人物关系", "focus": "利益关系、背叛、信任崩塌"},
+        "power_system": {"priority": 1, "label": "力量体系", "focus": "力量/权力的获取与代价"},
+        "factions": {"priority": 2, "label": "势力格局", "focus": "地下势力、灰色地带"},
+        "timeline": {"priority": 2, "label": "时间线", "focus": "堕落/黑化进程"}
+      }
+    }
+  },
+
+  "shared_dimensions": {
+    "power_system": {"generic_label": "力量体系", "description": "角色的能力等级、成长路线、突破条件"},
+    "economy": {"generic_label": "经济体系", "description": "货币层级、物价、财富流动"},
+    "factions": {"generic_label": "势力格局", "description": "组织、宗门、家族、国家间的权力关系"},
+    "characters": {"generic_label": "人物关系", "description": "角色间的情感/利益/权力关系网络"},
+    "world_rules": {"generic_label": "世界规则", "description": "世界运行的基本法则、限制条件"},
+    "resources": {"generic_label": "资源体系", "description": "稀缺资源、获取方式、分布"},
+    "timeline": {"generic_label": "时间线", "description": "关键事件的时间节点和顺序"},
+    "clues": {"generic_label": "线索链", "description": "谜题线索的布局、误导和揭示"},
+    "relationship_timeline": {"generic_label": "关系变化时间线", "description": "人物关系随事件演进的变化轨迹"}
+  }
+}

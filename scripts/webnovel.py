@@ -33,6 +33,7 @@ def main():
         "outline": _cmd_outline,
         "generate": _cmd_generate,
         "track": _cmd_track,
+        "genre-dimensions": _cmd_genre_dimensions,
         "archive": _cmd_archive,
         "doctor": _cmd_doctor,
         "init": _cmd_init,
@@ -150,6 +151,34 @@ def _cmd_track(args):
             devs = tracker.outline.get_deviations()
             for d in devs:
                 print(f"Ch.{d['chapter']} [{d['deviation_type']}] planned: {d['planned'][:40]} → actual: {d['actual'][:40]}")
+
+
+def _cmd_genre_dimensions(args):
+    """Show genre-specific worldbuilding dimensions."""
+    import json
+    scripts_dir = os.path.dirname(os.path.abspath(__file__))
+    dims_path = os.path.join(os.path.dirname(scripts_dir), "references", "genre-dimensions.json")
+    if not os.path.isfile(dims_path):
+        print("genre-dimensions.json not found")
+        return
+    with open(dims_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    extra = args.get("extra", {})
+    genre = extra.get("genre", extra.get("_positional", [""])[0] if extra.get("_positional") else "")
+    if genre and genre in data.get("genres", {}):
+        gd = data["genres"][genre]
+        print(f"\n题材「{genre}」的世界观聚焦维度：\n")
+        for dim_key, dim in sorted(gd["dimensions"].items(), key=lambda x: x[1]["priority"]):
+            prio_label = {1: "必答", 2: "建议", 3: "可选", 0: "不适用"}.get(dim["priority"], "?")
+            print(f"  [{prio_label}] {dim['label']}")
+            print(f"         {dim['focus']}")
+        print()
+    else:
+        print("Available genres:")
+        for g in sorted(data.get("genres", {}).keys()):
+            print(f"  {g}")
+        print(f"\nTotal: {len(data.get('genres', {}))} genres")
+        print("Use --genre <name> to see dimensions for a specific genre.")
 
 
 def _cmd_archive(args):
