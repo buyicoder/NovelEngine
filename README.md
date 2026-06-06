@@ -3,7 +3,7 @@
 > 网文创作辅助系统 — 拆书分析 · 世界观搭建 · 头脑风暴 · 剧情规划 · 白话剧情生成
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.2.0-brightgreen.svg)](.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-0.3.0-brightgreen.svg)](.claude-plugin/plugin.json)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Plugin-purple.svg)](https://claude.ai/claude-code)
 
@@ -195,19 +195,26 @@ python webnovel.py --project-root "<路径>" <子命令>
 
 输出到 `拆书存档/<书名>/analysis.json`，包含可借鉴结构和差异化要求。
 
-### 2. 世界观搭建
+### 2. 世界观搭建（题材自适应）
 
-五个子系统，按需交互式搭建：
+**不做一刀切。** 37 个题材各有自己的聚焦维度，不对女频问力量体系，不对悬疑问经济体系。
 
-| 子系统 | 产出 |
-|--------|------|
-| 等级/力量体系 | 境界层级、能力解锁、突破条件、战力换算 |
-| 货币/经济体系 | 货币层级、兑换比例、购买力锚定、资源稀缺度 |
-| 势力格局 | 宗门/家族/组织、势力关系、压迫结构 |
-| 人物关系 | D-F-W-N-C 五维模型、角色卡、反派层级 |
-| 世界规则 | 地理格局、历史事件、特殊规则、限制代价 |
+```bash
+python scripts/webnovel.py genre-dimensions --genre 古言
+```
 
-完成后自动触发一致性校验（跨设定冲突检测）。
+| 题材类型 | 核心聚焦 | 直接跳过 |
+|----------|----------|----------|
+| 修仙/高武/系统流 | 力量体系、势力格局、资源体系 | — |
+| 女频/言情类 | 人物关系、关系变化时间线、社会规则 | 力量体系 |
+| 悬疑/规则怪谈 | 线索链、规则设定、人物动机 | 经济体系 |
+| 都市现实类 | 社会规则、人物关系网、经济状况 | 力量体系 |
+| 种田/经营类 | 资源体系、经济体系、时间线 | 力量体系 |
+| 科幻/末世 | 科技/末世规则、资源、势力 | — |
+
+9 个共享维度按题材自动适配：力量体系、经济体系、势力格局、人物关系、世界规则、资源体系、时间线、线索链、关系变化时间线。每个维度在每个题材下有专属的 focus 说明。
+
+完整映射：`references/genre-dimensions.json`。完成后自动触发一致性校验。
 
 ### 3. 剧情走向规划
 
@@ -265,25 +272,28 @@ python webnovel.py --project-root "<路径>" <子命令>
 
 ```
 Claude Code
-├── 7 个 Skill 命令（Slash Commands）
+├── 8 个 Skill 命令（Slash Commands）
 ├── 5 个 Agent（AI 角色代理）
 │   ├── Deconstruction Agent  拆书分析
-│   ├── Worldbuilding Agent   世界观搭建
+│   ├── Worldbuilding Agent   世界观搭建（题材自适应）
 │   ├── Outline Agent         剧情规划
 │   ├── Brainstorm Agent      头脑风暴
 │   └── Consistency Agent     一致性校验
-├── Python CLI（14 个数据模块）
+├── Python CLI（18 个数据模块）
+│   ├── 故事演化追踪（伏笔/人物/大纲偏离）
 │   ├── 实体索引 (SQLite)
 │   ├── 关系图管理
-│   ├── 模板管理 (37 题材 + 10 输出模板)
+│   ├── 题材维度映射 (37 题材自适应)
+│   ├── 模板管理 (37 题材 + 11 输出模板)
 │   ├── 拆书存档管理
 │   ├── 项目体检
 │   └── 备份归档
 └── 引用知识库
+    ├── genre-dimensions.json（题材自适应维度映射）
     ├── 37 题材模板
-    ├── 世界观设计指南（力量/势力/角色/经济/世界规则）
-    ├── 创意工具箱（反套路/融合/约束）
-    └── CSV 参考数据（命名/爽点/金手指/题材推理）
+    ├── 世界观设计指南
+    ├── 创意工具箱
+    └── CSV 参考数据
 ```
 
 **设计原则**：Agent 只做思考，CLI 只做数据，Skill 做编排。Markdown 为主（人可读），SQLite 为辅（可查询）。
@@ -310,6 +320,8 @@ Claude Code
 历史古代 · 历史脑洞 · 抗战谍战 · 电竞 · 直播文 · 知乎短篇 · 现实题材
 女频悬疑 · 幻想言情 · 年代 · 民国言情 · 职场婚恋 · 黑暗题材 · 多子多福 · 游戏体育
 
+> 每个题材有独立的维度映射，世界观搭建只问该题材真正需要的问题。详见 `references/genre-dimensions.json`。
+
 ## 开发
 
 ```bash
@@ -323,9 +335,9 @@ python -m pytest tests/ -v
 
 | 版本 | 内容 |
 |------|------|
-| **v0.2.0 (当前)** | 5 Agent + 7 Skill + Python CLI + 37 题材 + 世界观/大纲/白话剧情/头脑风暴 |
-| **v0.3.0 (计划)** | RAG 检索接入（embedding + rerank），设定智能检索 |
-| **v0.4.0 (计划)** | 人物关系可视化、拆书模式库积累 |
+| **v0.3.0 (当前)** | 题材自适应世界观 + 故事演化追踪 + 5 Agent + 8 Skill + 18 数据模块 |
+| **v0.4.0 (计划)** | RAG 检索接入（embedding + rerank），设定智能检索 |
+| **v0.5.0 (计划)** | 人物关系可视化、拆书模式库积累 |
 | **v1.0.0 (计划)** | Dashboard 面板、批量拆书对比、多项目管理 |
 
 ## 致谢

@@ -1,7 +1,7 @@
 {
   "name": "novel-engine",
-  "version": "0.1.0",
-  "description": "网文创作辅助系统 — 拆书分析、世界观搭建、头脑风暴、剧情规划、白话剧情生成",
+  "version": "0.3.0",
+  "description": "网文创作辅助系统 — 题材自适应世界观 · 拆书分析 · 故事演化追踪 · 白话剧情生成",
   "author": {
     "name": "NovelEngine"
   },
