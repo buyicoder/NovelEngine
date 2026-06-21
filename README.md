@@ -3,7 +3,7 @@
 > 网文创作辅助系统 — 拆书分析 · 世界观搭建 · 头脑风暴 · 剧情规划 · 白话剧情生成
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.3.0-brightgreen.svg)](.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-2.0.0-brightgreen.svg)](.claude-plugin/plugin.json)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Plugin-purple.svg)](https://claude.ai/claude-code)
 
@@ -164,7 +164,8 @@ python -X utf8 "<plugin_path>/scripts/webnovel.py" \
 |------|------|------|
 | `/novel-track` | 故事演化追踪（伏笔/人物/大纲偏离） | `/novel-track` |
 | `/novel-query` | 查询设定、角色、势力、伏笔 | `/novel-query 萧炎` |
-| `/novel-doctor` | 项目体检，诊断问题 | `/novel-doctor` |
+| `/novel-write` | **v2.0** 写前10步流水线——爽点池+密度闭环+违禁句预判 | `/novel-write 5` |
+| `/novel-quality` | **v2.0** 写后质量门控——违禁句扫描+轮换检查+章记 | `/novel-quality 5` |
 
 ### CLI 命令
 
@@ -335,7 +336,8 @@ python -m pytest tests/ -v
 
 | 版本 | 内容 |
 |------|------|
-| **v0.3.0 (当前)** | 题材自适应世界观 + 故事演化追踪 + 5 Agent + 8 Skill + 18 数据模块 |
+| **v0.3.0** | 题材自适应世界观 + 故事演化追踪 + 5 Agent + 8 Skill + 18 数据模块 |
+| **v2.0.0 (当前)** | 🆕 三层文件系统 + 写前10步流水线 + 爽点引擎 + 密度闭环 + 违禁句预判 + 轮换检查 + 章记Schema |
 | **v0.4.0 (计划)** | RAG 检索接入（embedding + rerank），设定智能检索 |
 | **v0.5.0 (计划)** | 人物关系可视化、拆书模式库积累 |
 | **v1.0.0 (计划)** | Dashboard 面板、批量拆书对比、多项目管理 |
